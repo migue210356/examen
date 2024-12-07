@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ alumno['nombre'] }} {{ alumno['apellido'] }}{% endblock %}
+
+{% block content %}
+    <h1 class="my-4"><strong>Nombre:</strong> {{ alumno['nombre'] }}</h1>
+    <p><strong>Apellido:</strong> {{ alumno['apellido'] }}</p>
+    <p class="mb-4"><strong>Aprobado</strong>: {{ alumno['aprobado'] }}</p>
+    <a href="{{ url_for('edit_one_alumno', alumno_id=alumno['id']) }}" class="btn btn-warning mb-3">
+        Editar
+    </a>
+    <form action="{{ url_for('delete_one_alumno', alumno_id=alumno['id']) }}" method="POST">
+        <button type="submit" class="btn btn-danger mb-3"
+        onclick="return confirm('¿Estás seguro de que quieres eliminar esta publicación?')">
+            Eliminar Publicación
+        </button>
+    </form>
+    <a href="{{ url_for('get_all_alumno') }}" class="btn btn-primary">
+        Volver a la lista de alumnos
+    </a>
+{% endblock %}

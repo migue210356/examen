@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Alumnos{% endblock %}
+
+{% block content %}
+<h1>Bienvenido a los Alumnos</h1>
+{% if alumnos %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha de Creación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+                <tr>
+                    <td><a href="{{ url_for('get_one_alumno', alumno_id=alumno['id']) }}">{{ alumno['id'] }}</a></td>
+                    <td>{{ alumno['nombre'] }}</td>
+                    <td>{{ alumno['apellido'] }}</td>
+                    <td>{{ alumno['fecha'] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_one_alumno', id=alumno['id']) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <form action="{{ url_for('delete_one_alumno', alumno_id=alumno['id']) }}" method="alumno" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este alumno?');">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay nada en la tabla.</p>
+{% endif %}
+<a class="btn btn-primary" href="{{ url_for('create_one_alumno') }}">Nuevo alumno</a>
+{% endblock %}
